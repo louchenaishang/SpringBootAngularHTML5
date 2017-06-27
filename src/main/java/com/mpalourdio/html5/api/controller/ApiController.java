@@ -7,7 +7,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.mpalourdio.html5.api;
+package com.mpalourdio.html5.api.controller;
 
 import com.mpalourdio.html5.api.resource.DataListOptionsResource;
 import org.apache.commons.io.IOUtils;

@@ -1,0 +1,23 @@
+# Server configuration
+server:
+  port: 8080
+  contextPath:
+  compression:
+    enabled: true
+    mime-types: application/javascript,application/json,text/css,text/html,text/plain
+
+# Spring configuration
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: springboot
+
+# Logging configuration
+logging:
+  level:
+    root: info
