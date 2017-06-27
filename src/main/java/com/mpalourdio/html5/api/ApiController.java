@@ -9,6 +9,7 @@
 
 package com.mpalourdio.html5.api;
 
+import com.mpalourdio.html5.api.resource.DataListOptionsResource;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,12 +33,29 @@ public class ApiController {
     private String contentType;
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    @GetMapping(path = "/service4")
+    public DataListOptionsResource service4(){
+        return new DataListOptionsResource(11+"",22+"");
+    }
+
+    @GetMapping(path = "/service3")
+    public List<String> service3(){
+        final List<String> results = new ArrayList<>();
+        results.add("Hey, I am a response from ApiController");
+        return results;
+    }
+
+    @GetMapping(path = "/service2")
+    public String service2(){
+        return "service2 ok";
+    }
+
     @GetMapping(path = "/service1")
     public ResponseEntity<List<String>> consumeMePlease() {
         final List<String> results = new ArrayList<>();
         results.add("Hey, I am a response from ApiController");
 
-        return new ResponseEntity<>(results, HttpStatus.OK);
+        return new ResponseEntity<List<String>>(results, HttpStatus.OK);
     }
 
     @GetMapping(path = "/slowservice")

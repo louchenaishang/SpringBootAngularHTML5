@@ -12,14 +12,21 @@ package com.mpalourdio.html5.config;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.TransformedResource;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 @Configuration
 public class SinglePageAppConfig extends WebMvcConfigurerAdapter {
@@ -84,4 +91,31 @@ public class SinglePageAppConfig extends WebMvcConfigurerAdapter {
             return null;
         }
     }
+
+    @Bean
+    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter(){
+        return new ByteArrayHttpMessageConverter();
+    }
+
+    @Bean
+    public StringHttpMessageConverter stringHttpMessageConverter(){
+        StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
+        return stringHttpMessageConverter;
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(){
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        return mappingJackson2HttpMessageConverter;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(byteArrayHttpMessageConverter());
+        converters.add(stringHttpMessageConverter());
+        converters.add(mappingJackson2HttpMessageConverter());
+
+        super.configureMessageConverters(converters);
+    }
+
 }
