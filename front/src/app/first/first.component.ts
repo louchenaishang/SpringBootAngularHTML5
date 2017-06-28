@@ -19,12 +19,17 @@ export class FirstComponent implements OnInit {
     datalist: string[] = [];
     datalistselection: string;
 
+    userList: any;
+
     constructor(private http: HttpService) {
     }
 
     ngOnInit(): void {
         this.http.datalist().subscribe(
             d => this.datalist = d
+        );
+        this.http.userlist().subscribe(
+            d => this.userList = d
         );
     }
 

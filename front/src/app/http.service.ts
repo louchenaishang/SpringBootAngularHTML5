@@ -57,6 +57,13 @@ export class HttpService {
             .catch(this.handleError);
     }
 
+    userlist(): Observable<any> {
+        return this.http
+            .get('api/user')
+            .map(r => r.json())
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         return res.json() || {};
     }
